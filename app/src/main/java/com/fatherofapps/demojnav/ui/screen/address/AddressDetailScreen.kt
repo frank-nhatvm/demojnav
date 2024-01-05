@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.fatherofapps.demojnav.data.Address
+import com.fatherofapps.demojnav.data.AddressNavType
 import com.fatherofapps.jnav.annotations.JDataType
 import com.fatherofapps.jnav.annotations.JNav
 import com.fatherofapps.jnav.annotations.JNavArg
@@ -26,7 +27,12 @@ import com.fatherofapps.jnav.annotations.JNavArg
     baseRoute = "address_detail_route",
     destination = "address_detail_destination",
     arguments = [
-        JNavArg(name = "address", type = Address::class, dataType = JDataType.Parcelable)
+        JNavArg(
+            name = "address",
+            type = Address::class,
+            dataType = JDataType.Parcelable,
+            customNavType = AddressNavType::class,
+        )
     ]
 )
 fun AddressDetailScreen(address: Address) {

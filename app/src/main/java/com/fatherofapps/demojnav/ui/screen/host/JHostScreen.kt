@@ -53,21 +53,21 @@ fun JHostScreen() {
             )
         }
 
-//        composable(route = AddressBookNavigation.route) {
-//            AddressBookScreen(openAddressDetailScreen = { address ->
-//
-//                navController.navigate(AddressDetailNavigation.createRoute(address = address))
-//
-//            })
-//        }
-//
-//        composable(
-//            route = AddressDetailNavigation.route,
-//            arguments = AddressDetailNavigation.arguments()
-//        ) {
-//            val address = AddressDetailNavigation.address(it)
-//            AddressDetailScreen(address = address)
-//        }
+        composable(route = AddressBookNavigation.route) {
+            AddressBookScreen(openAddressDetailScreen = { address ->
+
+                navController.navigate(AddressDetailNavigation.createRoute(address = address))
+
+            })
+        }
+
+        composable(
+            route = AddressDetailNavigation.route,
+            arguments = AddressDetailNavigation.arguments()
+        ) {
+            val address = AddressDetailNavigation.address(it)
+            AddressDetailScreen(address = address)
+        }
 
     }
 }
