@@ -1,6 +1,7 @@
 package com.fatherofapps.demojnav.ui.screen.host
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,19 +15,26 @@ import com.fatherofapps.demojnav.ui.screen.address.AddressDetailNavigation
 import com.fatherofapps.demojnav.ui.screen.address.AddressDetailScreen
 import com.fatherofapps.demojnav.ui.screen.cart.CartScreen
 import com.fatherofapps.demojnav.ui.screen.cart.CartScreenNavigation
+import com.fatherofapps.demojnav.ui.screen.customer.ProfileNavigation
+import com.fatherofapps.demojnav.ui.screen.customer.ProfileScreen
+import com.fatherofapps.demojnav.ui.screen.dashboard.DashboardNavigation
+import com.fatherofapps.demojnav.ui.screen.dashboard.DashboardScreenRoute
 import com.fatherofapps.demojnav.ui.screen.home.HomeNavigation
 import com.fatherofapps.demojnav.ui.screen.home.HomeScreen
+import com.fatherofapps.jnav.JNavigation
 
 @Composable
-fun JHostScreen() {
-    val navController = rememberNavController()
+fun JHostScreen(
+    navController: NavHostController,
+    onNavigate: (JNavigation, String?) -> Unit
+) {
+
     NavHost(navController = navController, startDestination = HomeNavigation.route) {
 
         composable(route = HomeNavigation.route) {
             HomeScreen(openCartScreen = { productId, productName, productPrice ->
-
-                navController.navigate(
-                    CartScreenNavigation.createRoute(
+                onNavigate(
+                    CartScreenNavigation, CartScreenNavigation.createRoute(
                         productName,
                         productId,
                         productPrice
@@ -34,10 +42,13 @@ fun JHostScreen() {
                 )
 
             }, openAddressBook = {
-                navController.navigate(AddressBookNavigation.route)
+                onNavigate(AddressBookNavigation, AddressBookNavigation.route)
             })
         }
 
+        composable(route = ProfileNavigation.route) {
+            ProfileScreen()
+        }
 
         composable(
             route = CartScreenNavigation.route,
@@ -55,9 +66,10 @@ fun JHostScreen() {
 
         composable(route = AddressBookNavigation.route) {
             AddressBookScreen(openAddressDetailScreen = { address ->
-
-                navController.navigate(AddressDetailNavigation.createRoute(address = address))
-
+                onNavigate(
+                    AddressDetailNavigation,
+                    AddressDetailNavigation.createRoute(address = address)
+                )
             })
         }
 
