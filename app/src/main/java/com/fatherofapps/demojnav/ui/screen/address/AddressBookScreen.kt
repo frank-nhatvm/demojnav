@@ -1,6 +1,7 @@
 package com.fatherofapps.demojnav.ui.screen.address
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -33,7 +35,9 @@ import com.fatherofapps.jnav.annotations.JNav
 fun AddressBookScreen(
     openAddressDetailScreen: (Address) -> Unit,
 ) {
-
+SideEffect {
+    Log.e("frank","Address book screen")
+}
     val rememberOpenAddressDetailScreen = remember {
         { address: Address ->
             openAddressDetailScreen(address)
@@ -48,7 +52,7 @@ fun AddressBookScreen(
     Scaffold(topBar = {
         CenterAlignedTopAppBar(
             title = {
-                Text(text = "Cart")
+                Text(text = "Address Book")
             },
             modifier = Modifier.shadow(elevation = 6.dp)
         )

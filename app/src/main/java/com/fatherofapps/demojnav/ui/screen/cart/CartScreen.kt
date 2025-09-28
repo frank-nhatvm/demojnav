@@ -31,7 +31,8 @@ import com.fatherofapps.jnav.annotations.JNavArg
     arguments = [
         JNavArg(name = "productName", type = String::class),
         JNavArg(name = "productId", type = Int::class),
-        JNavArg(name = "productPrice", type = Float::class)
+        JNavArg(name = "productPrice", type = Float::class),
+        JNavArg(name = "productQty", type = Int::class)
     ]
 )
 fun CartScreen(

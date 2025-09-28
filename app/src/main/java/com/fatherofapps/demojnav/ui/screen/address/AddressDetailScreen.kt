@@ -29,7 +29,7 @@ import com.fatherofapps.jnav.annotations.JNavArg
     arguments = [
         JNavArg(
             name = "address",
-            type = Address::class,
+            type = Address::class, // Int::class, String::class
             dataType = JDataType.Parcelable,
             customNavType = AddressNavType::class,
         )
@@ -39,7 +39,7 @@ fun AddressDetailScreen(address: Address) {
     Scaffold(topBar = {
         CenterAlignedTopAppBar(
             title = {
-                Text(text = "Cart")
+                Text(text = "Address Detail")
             }, modifier = Modifier.shadow(elevation = 6.dp)
         )
     }) { padding ->

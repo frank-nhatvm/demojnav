@@ -6,18 +6,19 @@ import androidx.navigation.navArgument
 
 object CartNavigation {
 
+
     private const val productIdArg = "productIdArg"
     private const val productNameArg = "productNameArg"
     private const val productPriceArg = "productPriceArg"
 
-    val route = "cart/$productIdArg={$productIdArg}&$productNameArg={$productNameArg}&$productPriceArg={$productPriceArg}"
+    val route = "cart_route/$productIdArg={$productIdArg}&$productNameArg={$productNameArg}&$productPriceArg={$productPriceArg}"
 
     fun createRoute(
         productId:Int,
         productName:String,
         productPrice:Float
     ):String{
-        return "cart/$productIdArg=$productId&$productNameArg=$productName&$productPriceArg=$productPrice"
+        return "cart_route/$productIdArg=$productId&$productNameArg=$productName&$productPriceArg=$productPrice"
     }
 
     fun productId(navBackStackEntry: NavBackStackEntry) = navBackStackEntry.arguments?.getInt("productId") ?: throw Exception("")
