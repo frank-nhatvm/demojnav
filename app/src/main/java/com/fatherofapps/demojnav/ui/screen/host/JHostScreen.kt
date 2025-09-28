@@ -2,7 +2,6 @@ package com.fatherofapps.demojnav.ui.screen.host
 
 import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,27 +17,25 @@ import com.fatherofapps.demojnav.ui.screen.address.AddressDetailNavigation
 import com.fatherofapps.demojnav.ui.screen.address.AddressDetailScreen
 import com.fatherofapps.demojnav.ui.screen.cart.CartScreen
 import com.fatherofapps.demojnav.ui.screen.cart.CartScreenNavigation
+import com.fatherofapps.demojnav.ui.screen.customer.ProfileNavigation
+import com.fatherofapps.demojnav.ui.screen.customer.ProfileScreen
+import com.fatherofapps.demojnav.ui.screen.dashboard.DashboardNavigation
+import com.fatherofapps.demojnav.ui.screen.dashboard.DashboardScreenRoute
 import com.fatherofapps.demojnav.ui.screen.home.HomeNavigation
 import com.fatherofapps.demojnav.ui.screen.home.HomeScreen
+import com.fatherofapps.jnav.JNavigation
 
 @Composable
 fun JHostScreen(
     navController: NavHostController,
-    appState: AppState
+    onNavigate: (JNavigation, String?) -> Unit
 ) {
-
     NavHost(navController = navController, startDestination = HomeNavigation.route) {
-
-        Log.e("frank","NavHost")
-
         composable(route = HomeNavigation.route) {
-            SideEffect {
-                Log.e("frank","Home composable")
-            }
-            HomeScreen(openCartScreen = { productId, productName, productPrice ->
 
-                appState.navigateTo(
-                    CartScreenNavigation.createRoute(
+            HomeScreen(openCartScreen = { productId, productName, productPrice ->
+                onNavigate(
+                    CartScreenNavigation, CartScreenNavigation.createRoute(
                         productName,
                         productId,
                         productPrice,
@@ -47,17 +44,19 @@ fun JHostScreen(
                 )
 
             }, openAddressBook = {
-                Log.e("frank","Home composable openAddressBook")
-                appState.navigateTo(AddressBookNavigation.route)
+                onNavigate(AddressBookNavigation, AddressBookNavigation.route)
             })
         }
 
+        composable(route = ProfileNavigation.route) {
+            ProfileScreen()
+        }
 
         composable(
             route = CartScreenNavigation.route,
             arguments = CartScreenNavigation.arguments()
         ) {
-            Log.e("frank","Cart composable")
+            Log.e("frank", "Cart composable")
             val productName = CartScreenNavigation.productName(it)
             val productId = CartScreenNavigation.productId(it)
             val productPrice = CartScreenNavigation.productPrice(it)
@@ -69,12 +68,12 @@ fun JHostScreen(
         }
 
         composable(route = AddressBookNavigation.route) {
-            SideEffect {
-                Log.e("frank","Address book composable")
-            }
             AddressBookScreen(openAddressDetailScreen = { address ->
 
-                appState.navigateTo(AddressDetailNavigation.createRoute(address = address))
+                onNavigate(
+                    AddressDetailNavigation,
+                    AddressDetailNavigation.createRoute(address = address)
+                )
 
             })
         }
