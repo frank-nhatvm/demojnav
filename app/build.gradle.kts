@@ -3,16 +3,18 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
-
+// demojnav_alias
+//Frank@2025
 android {
     namespace = "com.fatherofapps.demojnav"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.fatherofapps.demojnav"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -35,15 +37,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+    kotlin{
+        jvmToolchain(17)
     }
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -73,6 +73,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
 
-    implementation("com.fatherofapps:jnav:1.0.2")
-    ksp("com.fatherofapps:jnav:1.0.2")
+    implementation("com.fatherofapps.jnav:jnav:2.0.2")
+    ksp("com.fatherofapps.jnav:jnav:2.0.2")
 }
